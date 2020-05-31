@@ -21,7 +21,7 @@ router.get('/' ,checkToken, function (req , res){
         [uid1],
         function(err , results , feilds){
         if(err) {console.log(err);}
-        console.log(results);
+        // console.log(results);
         // console.log(results.password);
         res.send(JSON.stringify(results))
         // res.send(results[0].title + results[0].body);
@@ -50,10 +50,6 @@ router.post('/' ,checkToken, function (req , res){
         ],
         function(err , results , feilds){
         if(err) {console.log(err);}
-        // console.log(results);
-        // console.log(results.password);
-        // res.send(JSON.stringify(results))
-        // res.send(results[0].title + results[0].body);
         else {
             res.send("todo added successfully");
         }

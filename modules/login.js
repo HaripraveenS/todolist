@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const con = require('./database');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt');
 router.post('/' , function (req,res) {
     con.getConnection((err , connection) => {
         connection.query("SELECT * FROM users1 WHERE username= ?"
@@ -20,9 +20,10 @@ router.post('/' , function (req,res) {
                     message:"invalid username or password"
                 });
             }
-            if(results[0].password == req.body.password)
+            if(bcrypt.compareSync(req.body.password ,results[0].password))
             {
                 console.log("login successful");
+                results[0].password = null;
                 var token = jwt.sign({details : results[0]} , 'shhhh');
 
                 res.json({
